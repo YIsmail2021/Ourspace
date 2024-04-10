@@ -19,7 +19,7 @@
 
       <div
         class="column is-3"
-        v-for="post in latestPosts"
+        v-for="post in listPosts"
         v-bind:key="post.id">
         <div class="box">
           <figure class="image mb-4">
@@ -43,20 +43,20 @@ export default {
   name: 'HomeView',
   data() {
     return {
-      latestPosts: []
+      listPosts: []
     }
   },
   components: {
   },
   mounted() {
-    this.getLatestPosts()
+    this.getListPosts()
   },
   methods: {
-    getLatestPosts(){
+    getListPosts(){
       axios
-      .get('/api/v1/latest-posts/')
+      .get('/api/v1/posts/')
       .then(response => {
-        this.latestPosts = response.data
+        this.listPosts = response.data
       })
       .catch(error => {
         console.log(error)
