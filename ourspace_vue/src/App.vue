@@ -2,7 +2,7 @@
   <div id="wrapper">
     <nav class="navbar is-dark">
       <div class="navbar-brand">
-        <router-link to="/" class="navbar-item"><strong>Djackets</strong></router-link>
+        <router-link to="/" class="navbar-item"><strong>Ourspace</strong></router-link>
         <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -12,6 +12,7 @@
 
       <div class="navbar-menu" id="navbar-menu">
         <div class="navbar-end">
+          <!-- list of categories will go here.-->
           <router-link to="/summer" class="navbar-item">Summer</router-link>
           <router-link to="/Winter" class="navbar-item">Winter</router-link>
 
