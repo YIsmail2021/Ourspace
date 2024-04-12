@@ -1,5 +1,4 @@
 <template>
-
   <div class="home">
     <section class="hero is-medium is-dark mb-6">
       <div class="hero-body has-text-centered">
@@ -22,12 +21,12 @@
         v-for="post in listPosts"
         v-bind:key="post.id">
         <div class="box">
-          <figure class="image mb-4">
-            <img v-bind:src="product.get_thumbnail">
-          </figure>
-          <h3 class="is-size-4">{{ post.name }}</h3>
-          <p class="is-size-6 has-text-grey">S{{ post.price }}</p>
-          View details
+          <h3 class="is-size-5">{{ post.title }}</h3>
+          <p class="is-size-6 has-text-grey has-text-right mb-5">User: {{ post.author_id }}</p>
+          <!-- Need to shorten the body-->
+          <p class="is-size-6 has-text-grey has-text-centered mb-2">{{ post.body }}</p>
+          <router-link :to="{ name: 'post', params: { postId: post.id } }" class="is-size-6 has-text-grey has-text-centered has-text-weight-light">View details</router-link>
+          <p class="is-size-6 has-text-grey has-text-right has-text-weight-light">{{ post.humanize_created_on }}</p>
         </div>
       </div>
 
@@ -54,9 +53,11 @@ export default {
   methods: {
     getListPosts(){
       axios
-      .get('/api/v1/posts/')
+      .get('/api/v1/post/')
       .then(response => {
         this.listPosts = response.data
+        console.log(response.data)
+        console.log(response)
       })
       .catch(error => {
         console.log(error)

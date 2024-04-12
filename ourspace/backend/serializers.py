@@ -9,14 +9,18 @@ def create_user(self, validated_data):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    humanize_created_on = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
         fields = [
             'id',
             'ip_address',
-            'created_on',
+            'humanize_created_on',
         ]
+    
+    def get_humanize_created_on(self, obj):
+        return obj.created_on.strftime('%d-%m-%Y %H:%M')
 
 class CategorySerializer(serializers.ModelSerializer):
 
@@ -28,18 +32,26 @@ class CategorySerializer(serializers.ModelSerializer):
             'type',
         ]
 
+# TODO: Make some sort of previewed text.
 class PostSerializer(serializers.ModelSerializer):
     # generated in the model.
-    created_on = serializers.DateTimeField(read_only=True)
-
+    humanize_created_on = serializers.SerializerMethodField(read_only=True)
+    author_id = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Post
         fields = [
             'id',
             'title',
             'body',
-            'created_on',
+            'author_id',
+            'humanize_created_on',
         ]
+    
+    def get_humanize_created_on(self, obj):
+        return obj.created_on.strftime('%d-%m-%Y %H:%M')
+    
+    def get_author_id(self, obj):
+        return obj.author.pk
 
     def create(self, validated_data):
         # random user will be generated
@@ -48,17 +60,24 @@ class PostSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     # generated in the model.
-    created_on = serializers.DateTimeField(read_only=True)
+    humanize_created_on = serializers.SerializerMethodField(read_only=True)
+    author_id = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Comment
         fields = [
             'id',
-            'title',
             'body',
             'post',
-            'created_on',
+            'author_id',
+            'humanize_created_on',
         ]
+    
+    def get_humanize_created_on(self, obj):
+        return obj.created_on.strftime('%d-%m-%Y %H:%M')
+    
+    def get_author_id(self, obj):
+        return obj.author.pk
     
     def create(self, validated_data):
         # random user will be generated

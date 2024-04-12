@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from .models import User, Post, Comment, Category
 from .serializers import PostSerializer, UserSerializer, CommentSerializer, CategorySerializer
 
-# TODO: Convert to class based views.
+
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all().order_by('created_on')
     serializer_class = PostSerializer
@@ -43,6 +43,12 @@ class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     http_method_names = ['get', 'post', 'delete']
+
+    def get_queryset(self):
+        breakpoint()
+        post_id = self.kwargs.get('post_id')
+        queryset = Comment.objects.filter(post=post_id) if post_id else Comment.objects.all()
+        return queryset
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()

@@ -38,7 +38,7 @@ class Category(BaseModel):
 
 class Post(BaseModel):
     title = models.CharField(max_length=15)
-    body = models.CharField(max_length=300)
+    body = models.CharField(max_length=3000)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -46,7 +46,6 @@ class Post(BaseModel):
         return self.title
 
 class Comment(BaseModel):
-    title = models.CharField(max_length=15)
     body = models.CharField(max_length=300)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
