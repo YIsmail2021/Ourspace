@@ -67,14 +67,17 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = [
             'id',
-            'title',
             'body',
             'post',
+            'author_id',
             'humanize_created_on',
         ]
     
     def get_humanize_created_on(self, obj):
         return obj.created_on.strftime('%d-%m-%Y %H:%M')
+    
+    def get_author_id(self, obj):
+        return obj.author.pk
     
     def create(self, validated_data):
         # random user will be generated
