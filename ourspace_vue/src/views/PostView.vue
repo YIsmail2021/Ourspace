@@ -26,7 +26,7 @@
 
       <div
         class="column is-full"
-        v-for="comment in listComments"
+        v-for="comment in listPostComments"
         v-bind:key="comment.id">
         <div class="box">
           <p class="is-size-6 has-text-grey has-text-right mb-5">User: {{ comment.author_id }}</p>
@@ -55,16 +55,16 @@ export default {
   data() {
     return {
       postDetails: {},
-      listComments: []
+      listPostComments: []
     }
   },
   components: {
   },
   mounted() {
     this.getPostDetails()
-    this.getCommentsList()
+    this.getPostCommentsList()
   },
-  // Will return details of just 1 post based on the URL.
+  // Get Post info
   methods: {
   getPostDetails() {
     // Get params
@@ -74,27 +74,27 @@ export default {
       .get(url)
       .then(response => {
         this.postDetails = response.data;
-        console.log(response.data);
       })
       .catch(error => {
         console.log(error);
       });
   },
-  getCommentsList() {
+  // Get comments from the post.
+  getPostCommentsList() {
     // Get params
     const postId = this.$route.params.postId;
-    const url = `/api/v1/comments/${postId}/`;
+    const url = `/api/v1/post-comments/${postId}/`;
     axios
       .get(url)
       .then(response => {
-        this.listComments = response.data;
-        console.log(response.data);
+        this.listPostComments = response.data;
+        console.log('working aaaaaaaaaa:', response.data);
       })
       .catch(error => {
-        console.log(error);
+        console.log('Not working aaaaaaaaaa:', error);
       });
   },
-
+  // Create a new comment.
   submitComment() {
     const postData = {
       post: this.$route.params.postId,

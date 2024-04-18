@@ -29,7 +29,6 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
-            'type',
         ]
 
 # TODO: Make some sort of previewed text.

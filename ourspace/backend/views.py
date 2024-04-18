@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
@@ -43,12 +44,6 @@ class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     http_method_names = ['get', 'post', 'delete']
-
-    def get_queryset(self):
-        breakpoint()
-        post_id = self.kwargs.get('post_id')
-        queryset = Comment.objects.filter(post=post_id) if post_id else Comment.objects.all()
-        return queryset
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -100,3 +95,9 @@ class CategoryViewSet(ModelViewSet):
                 headers=headers
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PostCommentsAPIView(APIView):
+    def get(self, request, pk, *args, **kwargs):
+        comments = Comment.objects.filter(post_id=pk)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)

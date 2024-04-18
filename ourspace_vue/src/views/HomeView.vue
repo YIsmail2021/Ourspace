@@ -17,15 +17,14 @@
       </div>
 
       <div
-        class="column is-3"
+        class="column is-full"
         v-for="post in listPosts"
         v-bind:key="post.id">
         <div class="box">
-          <h3 class="is-size-5">{{ post.title }}</h3>
+          <h3 class="is-size-5 has-text-centered">{{ post.title }}</h3>
           <p class="is-size-6 has-text-grey has-text-right mb-5">User: {{ post.author_id }}</p>
-          <!-- Need to shorten the body-->
-          <p class="is-size-6 has-text-grey has-text-centered mb-2">{{ post.body }}</p>
-          <router-link :to="{ name: 'post', params: { postId: post.id } }" class="is-size-6 has-text-grey has-text-centered has-text-weight-light">View details</router-link>
+          <p class="is-size-6 has-text-grey has-text-centered mb-5">{{ post.body }}</p>
+          <router-link :to="{ name: 'post', params: { postId: post.id } }" class="is-size-6 mb-5 is-flex" style="justify-content: center;">View details</router-link>
           <p class="is-size-6 has-text-grey has-text-right has-text-weight-light">{{ post.humanize_created_on }}</p>
         </div>
       </div>

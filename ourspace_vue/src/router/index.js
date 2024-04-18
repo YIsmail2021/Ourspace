@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import PostView from '../views/PostView.vue'
-// import CategoryView from '../views/CategoryView.vue'
 
 const routes = [
   {
@@ -24,15 +22,22 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/CategoryView.vue')
   },
   // Lazy loading the post site.
-  // {
-  //   path: '/post/:postId',
-  //   name: 'post',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/PostView.vue')
-  // },
   {
     path: '/post/:postId',
     name: 'post',
-    component: PostView
+    component: () => import(/* webpackChunkName: "about" */ '../views/PostView.vue')
+  },
+  // Lazy loading the create post site.
+  {
+    path: '/create-post/',
+    name: 'create-post',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CreatePostView.vue')
+  },
+  // Lazy loading the create category site.
+  {
+    path: '/create-category/',
+    name: 'create-category',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CreateCategoryView.vue')
   },
 ]
 
