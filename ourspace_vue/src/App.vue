@@ -12,9 +12,10 @@
 
       <div class="navbar-menu" id="navbar-menu">
         <div class="navbar-end">
-          <!-- list of categories will go here.-->
-          <router-link to="/summer" class="navbar-item">Summer</router-link>
-          <router-link to="/Winter" class="navbar-item">Winter</router-link>
+          <!-- list of nav items will go here.-->
+          <router-link to="/category" class="navbar-item">View Categories</router-link>
+          <router-link to="/create-category" class="navbar-item">Create a category</router-link>
+          <router-link to="/create-post" class="navbar-item">Create a post</router-link>
 
           <div class="navbar-item">
             <div class="buttons">
