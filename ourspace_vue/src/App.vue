@@ -17,7 +17,7 @@
           <router-link to="/create-category" class="navbar-item">Create a category</router-link>
           <router-link to="/create-post" class="navbar-item">Create a post</router-link>
 
-          <div class="navbar-item">
+          <!--<div class="navbar-item">
             <div class="buttons">
               <router-link to="/log-in" class="button is-light">Log in</router-link>
 
@@ -26,7 +26,7 @@
                 <span>Cart</span>
               </router-link>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </nav>
