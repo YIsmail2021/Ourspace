@@ -43,6 +43,7 @@ class PostSerializer(serializers.ModelSerializer):
             'title',
             'body',
             'author_id',
+            'category',
             'humanize_created_on',
         ]
     

@@ -39,6 +39,7 @@ class Post(BaseModel):
     title = models.CharField(max_length=15)
     body = models.CharField(max_length=3000)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

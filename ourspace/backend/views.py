@@ -8,7 +8,8 @@ from .serializers import PostSerializer, UserSerializer, CommentSerializer, Cate
 
 
 class PostViewSet(ModelViewSet):
-    queryset = Post.objects.all().order_by('created_on')
+    # display latest posts therefore need to reverse order_by
+    queryset = Post.objects.all().order_by('-created_on')
     serializer_class = PostSerializer
     http_method_names = ['get', 'post', 'delete']
 
@@ -35,6 +36,7 @@ class PostViewSet(ModelViewSet):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# simple viewset, no user operations are needed aprt from fetching data.
 class UserViewSet(ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -96,6 +98,8 @@ class CategoryViewSet(ModelViewSet):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+# APIview to link fetch data of comments that are linked to posts.
 class PostCommentsAPIView(APIView):
     def get(self, request, pk, *args, **kwargs):
         comments = Comment.objects.filter(post_id=pk)

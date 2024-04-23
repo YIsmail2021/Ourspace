@@ -11,37 +11,13 @@
       </div>
     </section>
     
-    <div class="columns-is-multine">
-      <div class="column is-12">
-        <h2 class="is-size-2 has-text-centered">{{ postDetails.title }}</h2>
-      </div>
-
-      <div class="column is-full">
+    <!-- Displayed in a grid using bulma css-->
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter" v-for="category in listCategories" v-bind:key="category.id">
         <div class="box">
-          <p class="is-size-6 has-text-right mb-5">User: {{ postDetails.author_id }}</p>
-          <p class="is-size-6 has-text-grey has-text-centered mb-2">{{ postDetails.body }}</p>
-          <p class="is-size-6 has-text-grey has-text-right has-text-weight-light">{{ postDetails.humanize_created_on }}</p>
+          <h3 class="is-size-5 has-text-centered">{{ category.name }}</h3>
         </div>
       </div>
-
-      <div
-        class="column is-full"
-        v-for="comment in listPostComments"
-        v-bind:key="comment.id">
-        <div class="box">
-          <p class="is-size-6 has-text-grey has-text-right mb-5">User: {{ comment.author_id }}</p>
-          <p class="is-size-6 has-text-grey has-text-centered mb-2">{{ comment.body }}</p>
-          <p class="is-size-6 has-text-grey has-text-right has-text-weight-light">{{ comment.humanize_created_on }}</p>
-        </div>
-      </div>
-
-      <div class="column is-full">
-        <div class="box">
-          <textarea v-model="commentBody" class="textarea" placeholder="Enter your comment"></textarea>
-          <button @click="submitComment" class="button is-primary">Submit</button>
-        </div>
-      </div>
-
     </div>
 
   </div>
@@ -51,52 +27,33 @@
 import axios from 'axios'
 
 export default {
-  name: 'postView',
+  name: 'categoryView',
   data() {
     return {
-      postDetails: {},
-      listPostComments: []
+      listCategories: {},
     }
   },
   components: {
   },
   mounted() {
-    this.getPostDetails()
-    this.getPostCommentsList()
+    this.getListCategories()
   },
-  // Get Post info
+  // Get category info, will return a list of categories.
   methods: {
-  getPostDetails() {
+  getListCategories() {
     // Get params
-    const postId = this.$route.params.postId;
-    const url = `/api/v1/post/${postId}/`;
+    const url = `/api/v1/category/`;
     axios
       .get(url)
       .then(response => {
-        this.postDetails = response.data;
+        this.listCategories = response.data;
       })
       .catch(error => {
         console.log(error);
       });
   },
-  // Get comments from the post.
-  getPostCommentsList() {
-    // Get params
-    const postId = this.$route.params.postId;
-    const url = `/api/v1/post-comments/${postId}/`;
-    axios
-      .get(url)
-      .then(response => {
-        this.listPostComments = response.data;
-        console.log('working aaaaaaaaaa:', response.data);
-      })
-      .catch(error => {
-        console.log('Not working aaaaaaaaaa:', error);
-      });
-  },
   }
 }
-// add the submitted comment to the listComments array directly after a successful submission.
 </script>
 
 <style scoped>
